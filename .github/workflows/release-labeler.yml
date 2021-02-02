@@ -24,4 +24,13 @@ jobs:
                         state: 'closed'
                       });
                       
-                      console.log(issues);
+                      for (const issue of issues.data) {
+                        console.log(issue);
+                        
+                        await github.issues.createComment({
+                          issue_number: issue.number,
+                          owner: context.repo.owner,
+                          repo: context.repo.repo,
+                          body: 'Fixed by...'
+                        });
+                      }
