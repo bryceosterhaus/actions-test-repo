@@ -23,7 +23,5 @@ jobs:
                         repo: context.repo.repo,
                         state: 'closed'
                       });
-
-                      for (const issue of issues) {
-                        console.log(issues);
-                      }
+                      
+                      console.log(issues);
