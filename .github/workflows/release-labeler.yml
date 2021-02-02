@@ -7,10 +7,6 @@ jobs:
     labeler:
         runs-on: ubuntu-latest
         steps:
-            - name: View context attributes
-              uses: actions/github-script@v3
-              with:
-                  script: console.log(context)
             - uses: actions/github-script@v3
               with:
                   github-token: ${{secrets.GITHUB_TOKEN}}
@@ -28,12 +24,11 @@ jobs:
                         });
 
                         for (const issue of issues.data) {
-                          console.log(issue);
                           await github.issues.createComment({
                             issue_number: issue.number,
                             owner: context.repo.owner,
                             repo: context.repo.repo,
-                            body: `This issue has been merged and should be released at https://https://issues.liferay.com/browse/${LPS}`
+                            body: `This issue has been merged and will be released in DXP at https://https://issues.liferay.com/browse/${LPS}`
                           });
                         }
                       }
