@@ -17,7 +17,7 @@ jobs:
                   script: |
                       console.log('hello');
 
-                      const issues = await octokit.issues.listForRepo({
+                      const issues = await github.issues.listForRepo({
                         milestone: context.milestone.milestone.id,
                         owner: context.repo.owner,
                         repo: context.repo.repo,
