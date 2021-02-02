@@ -18,7 +18,7 @@ jobs:
                       console.log('hello');
 
                       const issues = await github.issues.listForRepo({
-                        milestone: context.milestone.number,
+                        milestone: context.payload.milestone.number,
                         owner: context.repo.owner,
                         repo: context.repo.repo,
                         state: 'closed'
