@@ -15,22 +15,25 @@ jobs:
               with:
                   github-token: ${{secrets.GITHUB_TOKEN}}
                   script: |
-                      console.log('hello');
+                      const jiraIssueMatch = context.payload.milestone.title.match(/^LPS-\d+/);
 
-                      const issues = await github.issues.listForRepo({
-                        milestone: context.payload.milestone.number,
-                        owner: context.repo.owner,
-                        repo: context.repo.repo,
-                        state: 'closed'
-                      });
-                      
-                      for (const issue of issues.data) {
-                        console.log(issue);
-                        
-                        await github.issues.createComment({
-                          issue_number: issue.number,
+                      if (jiraIssueMatch) {
+                        const LPS = jiraIssueMatch;
+
+                        const issues = await github.issues.listForRepo({
+                          milestone: context.payload.milestone.number,
                           owner: context.repo.owner,
                           repo: context.repo.repo,
-                          body: 'Fixed by...'
+                          state: 'closed'
                         });
+
+                        for (const issue of issues.data) {
+                          console.log(issue);
+                          await github.issues.createComment({
+                            issue_number: issue.number,
+                            owner: context.repo.owner,
+                            repo: context.repo.repo,
+                            body: `This issue has been merged and should be released at https://https://issues.liferay.com/browse/${LPS}`
+                          });
+                        }
                       }
