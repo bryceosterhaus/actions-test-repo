@@ -1,7 +1,7 @@
-name: 'Release Labeler'
+name: 'DXP Release Commenter'
 on:
     milestone:
-        types: [edited]
+        types: [closed]
 
 jobs:
     labeler:
